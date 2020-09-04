@@ -1,4 +1,4 @@
-const mix = require('laravel-mix');
+let mix = require('laravel-mix');
 
 /*
  |--------------------------------------------------------------------------
@@ -10,6 +10,20 @@ const mix = require('laravel-mix');
  | file for the application as well as bundling up all the JS files.
  |
  */
-
-mix.js('resources/js/app.js', 'public/js')
-    .sass('resources/sass/app.scss', 'public/css');
+mix.styles([
+        'resources/js/plantilla/css/font-awesome.min.css',
+        'resources/js/plantilla/css/simple-line-icons.min.css',
+        'resources/js/plantilla/css/style.css',
+        'resources/js/plantilla/css/LineIcons.min.css',
+        'resources/js/plantilla/css/bootstrap.min.css'
+    ], 'public/css/plantilla.css')
+    .scripts([
+        'resources/js/plantilla/js/jquery.min.js',
+        'resources/js/plantilla/js/popper.min.js',
+        'resources/js/plantilla/js/bootstrap.min.js',
+        'resources/js/plantilla/js/Chart.min.js',
+        'resources/js/plantilla/js/pace.min.js',
+        'resources/js/plantilla/js/template.js',
+        'resources/js/plantilla/js/sweetalert2.all.min.js'
+    ], 'public/js/plantilla.js')
+    .js(['resources/js/app.js'], 'public/js/app.js');
