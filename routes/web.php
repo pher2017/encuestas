@@ -17,6 +17,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/respuesta','RespuestaController@all');
+Route::get('/respuesta','RespuestaController@index');
 Route::get('/users','UserController@index');
 Route::get('/users/get','UserController@selectUsers');
+Route::get('/reporte', 'UserController@selectReporte');
+Route::get('/pregunta', 'PreguntaController@index');
+
+

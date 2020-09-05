@@ -28,7 +28,7 @@ class RespuestaController extends Controller
     }
 
     public function all(Request $request){
-     if (!$request->ajax()) return redirect('/');
+     //if (!$request->ajax()) return redirect('/');
         $respuestas=Respuesta::all();
 
         return ['respuestas'=>$respuestas];

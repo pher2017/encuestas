@@ -1964,6 +1964,75 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -1972,20 +2041,47 @@ __webpack_require__.r(__webpack_exports__);
     return {
       idusers: "",
       arrayUsers: [],
+      arrayUsers1: [],
+      arrayIngreso: [],
+      arrayPregunta: [],
+      arrayRespuesta: [],
       nombre: "",
-      rut: ""
+      rut: "",
+      email: "",
+      telefono: "",
+      buscar: "",
+      pregunta: "",
+      valor: "",
+      errorUsuario: [],
+      errorIngreso: 1
     };
   },
   components: {
     vSelect: vue_select__WEBPACK_IMPORTED_MODULE_1___default.a
   },
   methods: {
-    listarUsuarios: function listarUsuarios() {
+    listarUsuarios: function listarUsuarios(buscar) {
       var me = this;
-      var url = "users";
+      var url = "users?buscar=" + buscar;
       axios.get(url).then(function (response) {
         var respuesta = response.data;
-        me.arrayUsers = respuesta.users;
+        me.arrayUsers1 = respuesta.users.data;
+        var j = 0;
+
+        if (Object.entries(me.arrayUsers1).length === 0) {
+          swal({
+            type: "error",
+            title: "Valida Socio",
+            text: "el RUT Ingresado no existe en nuestra Base de datos, favor comunicarse con su Delegado"
+          });
+          console.log(me.arrayUsers1);
+        } else {
+          for (var i = 0; i < me.arrayUsers1.length; i++) {
+            me.nombre = me.arrayUsers1[i].nombre;
+            me.email = me.arrayUsers1[i].correo;
+            me.telefono = me.arrayUsers1[i].telefono;
+          }
+        }
       })["catch"](function (error) {
         console.log(error);
       });
@@ -1999,7 +2095,7 @@ __webpack_require__.r(__webpack_exports__);
 
         q: search;
 
-        me.arrayUsers = respuesta.users;
+        me.arrayUsers = respuesta.user;
         loading(false);
       })["catch"](function (error) {
         console.log(error);
@@ -2011,11 +2107,90 @@ __webpack_require__.r(__webpack_exports__);
       me.idusers = val.id;
       me.nombre = val.full;
       me.rut = val.rut;
+    },
+    selectReporte: function selectReporte() {
+      var me = this;
+      var url = "reporte";
+      axios.get(url).then(function (response) {
+        var respuesta = response.data;
+        me.arrayIngreso = respuesta.reportes.data;
+        me.pagination = respuesta.pagination;
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
+    selectPregunta: function selectPregunta() {
+      var me = this;
+      var url = "pregunta";
+      axios.get(url).then(function (response) {
+        var respuesta = response.data;
+        me.arrayPregunta = respuesta.preguntas;
+        me.pagination = respuesta.pagination;
+
+        for (var i = 0; i < me.arrayPregunta.length; i++) {
+          me.pregunta = me.arrayPregunta[i].pregunta;
+        }
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
+    selectRespuesta: function selectRespuesta() {
+      var me = this;
+      var url = "respuesta";
+      axios.get(url).then(function (response) {
+        var respuesta = response.data;
+        me.arrayRespuesta = respuesta.respuestas.data;
+
+        for (var i = 0; i < me.arrayRespuesta.length; i++) {}
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
+    validEmail: function validEmail(email) {
+      var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      return re.test(email);
+    },
+    checkForm: function checkForm(e) {
+      this.errors = [];
+
+      if (!this.name) {
+        this.errors.push("El nombre es obligatorio.");
+      }
+
+      if (!this.email) {
+        this.errors.push("El correo electrónico es obligatorio.");
+      } else if (!this.validEmail(this.email)) {
+        this.errors.push("El correo electrónico debe ser válido.");
+      }
+
+      if (!this.errors.length) {
+        return true;
+      }
+
+      e.preventDefault();
+    },
+    validaUsuario: function validaUsuario() {
+      this.errorIngreso = 0;
+      this.errorUsuario = [];
+
+      if (this.email == '' || this.email == null) {
+        this.errorUsuario.push("Ingrese Un correo");
+      } else if (!this.validEmail(this.email)) {
+        this.errorUsuario.push("Ingrese Un correo Valido");
+      }
+
+      if (this.telefono == '' || this.telefono == null) {
+        this.errorUsuario.push("Ingrese Un Telefono");
+      }
+
+      if (this.errorUsuario.length) this.errorIngreso = 1;
+      return this.errorIngreso;
     }
   },
   mounted: function mounted() {
-    this.listarUsuarios();
-    console.log("Component mounted.");
+    this.selectReporte();
+    this.selectPregunta();
+    this.selectRespuesta();
   }
 });
 
@@ -38340,42 +38515,295 @@ var render = function() {
                 staticStyle: { "font-size": "10pt" }
               },
               [
-                _c("div", { staticClass: "form-group row border" }, [
-                  _c("div", { staticClass: "col-md-8" }, [
-                    _c(
-                      "div",
-                      { staticClass: "form-group" },
-                      [
-                        _vm._m(1),
-                        _vm._v(" "),
-                        _c("v-select", {
-                          attrs: {
-                            "on-search": _vm.selectUser,
-                            label: "full",
-                            options: _vm.arrayUsers,
-                            value: _vm.idusers,
-                            placeholder: "Ingrese Su RUT",
-                            onChange: _vm.getDatosUser
-                          },
-                          model: {
-                            value: _vm.nombre,
-                            callback: function($$v) {
-                              _vm.nombre = $$v
-                            },
-                            expression: "nombre"
+                _c("div", { staticClass: "form-group row" }, [
+                  _c("div", { staticClass: "col-md-6" }, [
+                    _c("h6", [
+                      _vm._v(
+                        "\n                Ingrese su RUT sin puntos ni guion (ejemplo:\n                12345678)\n              "
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "input-group" }, [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.buscar,
+                            expression: "buscar"
                           }
-                        })
-                      ],
-                      1
-                    )
+                        ],
+                        staticClass: "form-control",
+                        attrs: { type: "text", placeholder: "Texto a buscar" },
+                        domProps: { value: _vm.buscar },
+                        on: {
+                          keyup: function($event) {
+                            if (
+                              !$event.type.indexOf("key") &&
+                              _vm._k(
+                                $event.keyCode,
+                                "enter",
+                                13,
+                                $event.key,
+                                "Enter"
+                              )
+                            ) {
+                              return null
+                            }
+                            return _vm.listarUsuarios(_vm.buscar)
+                          },
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.buscar = $event.target.value
+                          }
+                        }
+                      }),
+                      _vm._v("\n                 \n                "),
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-primary",
+                          attrs: { type: "submit" },
+                          on: {
+                            click: function($event) {
+                              return _vm.listarUsuarios(_vm.buscar)
+                            }
+                          }
+                        },
+                        [_vm._v("Buscar Socio")]
+                      )
+                    ])
                   ])
                 ]),
                 _vm._v(" "),
-                _c("div", [_vm._v("usuarios")]),
+                _c("div", { staticClass: "form-group row" }, [
+                  _c("div", { staticClass: "col-md-6" }, [
+                    _c("div", { staticClass: "form-group" }, [
+                      _vm.nombre !== ""
+                        ? _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.nombre,
+                                expression: "nombre"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            attrs: {
+                              type: "text",
+                              disabled: "",
+                              placeholder: "Nombre Socio"
+                            },
+                            domProps: { value: _vm.nombre },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.nombre = $event.target.value
+                              }
+                            }
+                          })
+                        : _vm._e()
+                    ])
+                  ])
+                ]),
                 _vm._v(" "),
-                _c("br"),
+                _c("div", { staticClass: "form-group row" }, [
+                  _c("div", { staticClass: "col-md-6" }, [
+                    _c("div", { staticClass: "form-group" }, [
+                      _vm.nombre !== ""
+                        ? _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.email,
+                                expression: "email"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            attrs: {
+                              id: "email",
+                              type: "email",
+                              name: "email",
+                              placeholder: "Por favor Ingrese su Correo"
+                            },
+                            domProps: { value: _vm.email },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.email = $event.target.value
+                              }
+                            }
+                          })
+                        : _vm._e()
+                    ])
+                  ])
+                ]),
                 _vm._v(" "),
-                _vm._m(2)
+                _c("div", { staticClass: "form-group row" }, [
+                  _vm.nombre !== ""
+                    ? _c("div", { staticClass: "col-md-6" }, [
+                        _c("div", { staticClass: "form-group" }, [
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.telefono,
+                                expression: "telefono"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            attrs: { type: "text", placeholder: "telefono" },
+                            domProps: { value: _vm.telefono },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.telefono = $event.target.value
+                              }
+                            }
+                          })
+                        ])
+                      ])
+                    : _vm._e()
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "text-center text-error" }, [
+                  _c(
+                    "h6",
+                    _vm._l(_vm.errorUsuario, function(error) {
+                      return _c(
+                        "div",
+                        {
+                          key: error,
+                          staticClass: "alert alert-danger",
+                          domProps: { textContent: _vm._s(error) }
+                        },
+                        [_vm._v(_vm._s(error))]
+                      )
+                    }),
+                    0
+                  )
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-group row" }, [
+                  _vm.nombre !== ""
+                    ? _c("div", { staticClass: "col-md-6" }, [
+                        _c("div", { staticClass: "form-group" }, [
+                          _c(
+                            "button",
+                            {
+                              staticClass:
+                                "btn btn-info form-control btnagregar",
+                              on: {
+                                click: function($event) {
+                                  return _vm.validaUsuario()
+                                }
+                              }
+                            },
+                            [_vm._v("Validar")]
+                          )
+                        ])
+                      ])
+                    : _vm._e()
+                ]),
+                _vm._v(
+                  "\n          " + _vm._s(_vm.errorIngreso) + "\n          "
+                ),
+                _c("div", { staticClass: "form-group row" }, [
+                  _vm.errorIngreso !== 1
+                    ? _c("div", { staticClass: "col-md-6" }, [
+                        _c("div", { staticClass: "form-group" }, [
+                          _c("h4", [_vm._v(_vm._s(_vm.pregunta))])
+                        ])
+                      ])
+                    : _vm._e()
+                ]),
+                _vm._v(" "),
+                _vm.errorIngreso !== 1
+                  ? _c("div", { staticClass: "form-check-inline" }, [
+                      _c(
+                        "label",
+                        {
+                          staticClass: "form-check-label",
+                          attrs: { for: "radio1" }
+                        },
+                        [
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.valor,
+                                expression: "valor"
+                              }
+                            ],
+                            staticClass: "form-check-input",
+                            attrs: {
+                              type: "radio",
+                              id: "radio1",
+                              name: "optradio",
+                              value: "SI"
+                            },
+                            domProps: { checked: _vm._q(_vm.valor, "SI") },
+                            on: {
+                              change: function($event) {
+                                _vm.valor = "SI"
+                              }
+                            }
+                          }),
+                          _vm._v("SI\n            ")
+                        ]
+                      )
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.errorIngreso !== 1
+                  ? _c("div", { staticClass: "form-check-inline" }, [
+                      _c(
+                        "label",
+                        {
+                          staticClass: "form-check-label",
+                          attrs: { for: "radio2" }
+                        },
+                        [
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.valor,
+                                expression: "valor"
+                              }
+                            ],
+                            staticClass: "form-check-input",
+                            attrs: {
+                              type: "radio",
+                              id: "radio2",
+                              name: "optradio",
+                              value: "NO"
+                            },
+                            domProps: { checked: _vm._q(_vm.valor, "NO") },
+                            on: {
+                              change: function($event) {
+                                _vm.valor = "NO"
+                              }
+                            }
+                          }),
+                          _vm._v("NO\n            ")
+                        ]
+                      )
+                    ])
+                  : _vm._e()
               ]
             )
           ]
@@ -38395,30 +38823,6 @@ var staticRenderFns = [
       { staticClass: "alert alert-success", attrs: { role: "alert" } },
       [_c("h3", [_vm._v("Encuestas Sinof 2020")])]
     )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("label", { attrs: { for: "" } }, [
-      _c("h6", [_vm._v("Socio2131321")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-8" }, [
-      _c("div", { staticClass: "card" }, [
-        _c("div", { staticClass: "card-header" }, [_vm._v("Encuesta")]),
-        _vm._v(" "),
-        _c("div", { staticClass: "card-body" }, [_vm._v("Pregunta")]),
-        _vm._v(" "),
-        _c("hr"),
-        _vm._v(" "),
-        _c("div", { staticClass: "card-body" }, [_vm._v("respuestas")])
-      ])
-    ])
   }
 ]
 render._withStripped = true
