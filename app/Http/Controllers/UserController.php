@@ -19,9 +19,11 @@ class UserController extends Controller
         else{
         $users = User::join('regions','users.idregion','=','regions.id')
         ->select(
+            'users.id',
             'users.numero',
             'users.dv',
             'users.nombre',
+            'regions.id as idregion',
             'regions.descripcion',
             'users.cargo',
             'users.centro',
@@ -90,6 +92,14 @@ class UserController extends Controller
             
             'reportes' => $reportes
         ];
+    }
+    public function update(Request $request)
+    {
+        if (!$request->ajax()) return redirect('/');
+        $user = User::findOrFail($request->id);
+        $user->correo = $request->email;
+        $user->telefono = $request->telefono;
+        $user->save();
     }
 
 

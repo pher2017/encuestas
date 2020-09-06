@@ -10,6 +10,7 @@ class Resultado extends Model
     protected $fillable = ['idrespuesta,
     idencuesta, 
     fecha,
-    idregion'];
+    idregion,
+    idpregunta'];
 
 }

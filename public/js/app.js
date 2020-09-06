@@ -2033,13 +2033,55 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      idusers: "",
+      idusers: 0,
+      idregion: 0,
       arrayUsers: [],
       arrayUsers1: [],
       arrayIngreso: [],
@@ -2051,9 +2093,11 @@ __webpack_require__.r(__webpack_exports__);
       telefono: "",
       buscar: "",
       pregunta: "",
-      valor: "",
+      valor: 0,
       errorUsuario: [],
-      errorIngreso: 1
+      errorIngreso: 1,
+      idencuesta: 0,
+      idpregunta: 0
     };
   },
   components: {
@@ -2080,6 +2124,8 @@ __webpack_require__.r(__webpack_exports__);
             me.nombre = me.arrayUsers1[i].nombre;
             me.email = me.arrayUsers1[i].correo;
             me.telefono = me.arrayUsers1[i].telefono;
+            me.idusers = me.arrayUsers1[i].id;
+            me.idregion = me.arrayUsers1[i].idregion;
           }
         }
       })["catch"](function (error) {
@@ -2129,6 +2175,8 @@ __webpack_require__.r(__webpack_exports__);
 
         for (var i = 0; i < me.arrayPregunta.length; i++) {
           me.pregunta = me.arrayPregunta[i].pregunta;
+          me.idpregunta = me.arrayPregunta[i].id;
+          me.idencuesta = me.arrayPregunta[i].idencuensta;
         }
       })["catch"](function (error) {
         console.log(error);
@@ -2173,18 +2221,56 @@ __webpack_require__.r(__webpack_exports__);
       this.errorIngreso = 0;
       this.errorUsuario = [];
 
-      if (this.email == '' || this.email == null) {
+      if (this.email == "" || this.email == null) {
         this.errorUsuario.push("Ingrese Un correo");
       } else if (!this.validEmail(this.email)) {
         this.errorUsuario.push("Ingrese Un correo Valido");
       }
 
-      if (this.telefono == '' || this.telefono == null) {
+      if (this.telefono == "" || this.telefono == null) {
         this.errorUsuario.push("Ingrese Un Telefono");
       }
 
       if (this.errorUsuario.length) this.errorIngreso = 1;
       return this.errorIngreso;
+    },
+    registrarIngreso: function registrarIngreso() {
+      var me = this;
+      axios.post("registrar", {
+        idencuesta: this.idencuesta,
+        idpregunta: this.idpregunta,
+        idusers: this.idusers,
+        idregion: this.idregion,
+        idrespuesta: this.valor
+      }).then(function (response) {
+        me.idusers = 0;
+        me.articulo = "";
+        me.idnivel = 0;
+        me.Nivel = "";
+        me.cantidad1 = 0;
+        me.observacion1 = "";
+        me.activo = 0;
+        me.arrayUsers1 = [];
+        me.arrayPregunta = [];
+        me.arrayRespuesta = [];
+        me.arrayDetalle = [];
+        me.errorUsuario = [];
+      })["catch"](function (error) {
+        console.log(error);
+      });
+      location.reload();
+    },
+    actualizarUsers: function actualizarUsers() {
+      var me = this;
+      axios.put("actualizar", {
+        email: me.email,
+        telefono: me.telefono,
+        id: me.idusers
+      }).then(function (response) {
+        me.listarUsuarios();
+      })["catch"](function (error) {
+        console.log(error);
+      });
     }
   },
   mounted: function mounted() {
@@ -38500,12 +38586,12 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("main", { staticClass: "main" }, [
-    _vm._m(0),
-    _vm._v(" "),
-    _c("div", { staticClass: "container-fluid" }, [
+    _c("div", { staticClass: "container" }, [
+      _vm._m(0),
+      _vm._v(" "),
       _c(
         "div",
-        { staticClass: "card" },
+        { staticClass: "jumbotron" },
         [
           [
             _c(
@@ -38519,7 +38605,7 @@ var render = function() {
                   _c("div", { staticClass: "col-md-6" }, [
                     _c("h6", [
                       _vm._v(
-                        "\n                Ingrese su RUT sin puntos ni guion (ejemplo:\n                12345678)\n              "
+                        "\n                                Ingrese su RUT sin puntos ni guion (ejemplo:\n                                12345678)\n                            "
                       )
                     ]),
                     _vm._v(" "),
@@ -38560,7 +38646,9 @@ var render = function() {
                           }
                         }
                       }),
-                      _vm._v("\n                 \n                "),
+                      _vm._v(
+                        "\n                                 \n                                "
+                      ),
                       _c(
                         "button",
                         {
@@ -38572,7 +38660,11 @@ var render = function() {
                             }
                           }
                         },
-                        [_vm._v("Buscar Socio")]
+                        [
+                          _vm._v(
+                            "\n                                    Buscar Socio\n                                "
+                          )
+                        ]
                       )
                     ])
                   ])
@@ -38678,21 +38770,29 @@ var render = function() {
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "text-center text-error" }, [
-                  _c(
-                    "h6",
-                    _vm._l(_vm.errorUsuario, function(error) {
-                      return _c(
-                        "div",
-                        {
-                          key: error,
-                          staticClass: "alert alert-danger",
-                          domProps: { textContent: _vm._s(error) }
-                        },
-                        [_vm._v(_vm._s(error))]
-                      )
-                    }),
-                    0
-                  )
+                  _c("h6", [
+                    _c(
+                      "small",
+                      _vm._l(_vm.errorUsuario, function(error) {
+                        return _c(
+                          "div",
+                          {
+                            key: error,
+                            staticClass: "alert alert-danger",
+                            domProps: { textContent: _vm._s(error) }
+                          },
+                          [
+                            _vm._v(
+                              "\n                                    " +
+                                _vm._s(error) +
+                                "\n                                "
+                            )
+                          ]
+                        )
+                      }),
+                      0
+                    )
+                  ])
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "form-group row" }, [
@@ -38710,100 +38810,126 @@ var render = function() {
                                 }
                               }
                             },
-                            [_vm._v("Validar")]
+                            [
+                              _vm._v(
+                                "\n                                    Validar\n                                "
+                              )
+                            ]
                           )
                         ])
                       ])
                     : _vm._e()
                 ]),
-                _vm._v(
-                  "\n          " + _vm._s(_vm.errorIngreso) + "\n          "
-                ),
-                _c("div", { staticClass: "form-group row" }, [
-                  _vm.errorIngreso !== 1
-                    ? _c("div", { staticClass: "col-md-6" }, [
-                        _c("div", { staticClass: "form-group" }, [
-                          _c("h4", [_vm._v(_vm._s(_vm.pregunta))])
+                _vm._v(" "),
+                _c("div", { staticClass: "card bg-light text-dark" }, [
+                  _c("div", { staticClass: "form-group row" }, [
+                    _vm.errorIngreso !== 1
+                      ? _c("div", { staticClass: "col-md-6" }, [
+                          _c("div", { staticClass: "form-group" }, [
+                            _c("h4", [_vm._v(_vm._s(_vm.pregunta))])
+                          ])
                         ])
+                      : _vm._e()
+                  ]),
+                  _vm._v(" "),
+                  _vm.errorIngreso !== 1
+                    ? _c("div", { staticClass: "form-check-inline" }, [
+                        _c(
+                          "label",
+                          {
+                            staticClass: "form-check-label",
+                            attrs: { for: "radio1" }
+                          },
+                          [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.valor,
+                                  expression: "valor"
+                                }
+                              ],
+                              staticClass: "form-check-input",
+                              attrs: {
+                                type: "radio",
+                                id: "radio1",
+                                name: "optradio",
+                                value: "1"
+                              },
+                              domProps: { checked: _vm._q(_vm.valor, "1") },
+                              on: {
+                                change: function($event) {
+                                  _vm.valor = "1"
+                                }
+                              }
+                            }),
+                            _vm._v("SI\n                            ")
+                          ]
+                        )
+                      ])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.errorIngreso !== 1
+                    ? _c("div", { staticClass: "form-check-inline" }, [
+                        _c(
+                          "label",
+                          {
+                            staticClass: "form-check-label",
+                            attrs: { for: "radio2" }
+                          },
+                          [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.valor,
+                                  expression: "valor"
+                                }
+                              ],
+                              staticClass: "form-check-input",
+                              attrs: {
+                                type: "radio",
+                                id: "radio2",
+                                name: "optradio",
+                                value: "2"
+                              },
+                              domProps: { checked: _vm._q(_vm.valor, "2") },
+                              on: {
+                                change: function($event) {
+                                  _vm.valor = "2"
+                                }
+                              }
+                            }),
+                            _vm._v("NO\n                            ")
+                          ]
+                        )
+                      ])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.errorIngreso !== 1
+                    ? _c("div", { staticClass: "modal-footer" }, [
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-primary",
+                            attrs: { type: "button" },
+                            on: {
+                              click: function($event) {
+                                _vm.registrarIngreso(), _vm.actualizarUsers()
+                              }
+                            }
+                          },
+                          [
+                            _vm._v(
+                              "\n                                Enviar\n                            "
+                            )
+                          ]
+                        )
                       ])
                     : _vm._e()
-                ]),
-                _vm._v(" "),
-                _vm.errorIngreso !== 1
-                  ? _c("div", { staticClass: "form-check-inline" }, [
-                      _c(
-                        "label",
-                        {
-                          staticClass: "form-check-label",
-                          attrs: { for: "radio1" }
-                        },
-                        [
-                          _c("input", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.valor,
-                                expression: "valor"
-                              }
-                            ],
-                            staticClass: "form-check-input",
-                            attrs: {
-                              type: "radio",
-                              id: "radio1",
-                              name: "optradio",
-                              value: "SI"
-                            },
-                            domProps: { checked: _vm._q(_vm.valor, "SI") },
-                            on: {
-                              change: function($event) {
-                                _vm.valor = "SI"
-                              }
-                            }
-                          }),
-                          _vm._v("SI\n            ")
-                        ]
-                      )
-                    ])
-                  : _vm._e(),
-                _vm._v(" "),
-                _vm.errorIngreso !== 1
-                  ? _c("div", { staticClass: "form-check-inline" }, [
-                      _c(
-                        "label",
-                        {
-                          staticClass: "form-check-label",
-                          attrs: { for: "radio2" }
-                        },
-                        [
-                          _c("input", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.valor,
-                                expression: "valor"
-                              }
-                            ],
-                            staticClass: "form-check-input",
-                            attrs: {
-                              type: "radio",
-                              id: "radio2",
-                              name: "optradio",
-                              value: "NO"
-                            },
-                            domProps: { checked: _vm._q(_vm.valor, "NO") },
-                            on: {
-                              change: function($event) {
-                                _vm.valor = "NO"
-                              }
-                            }
-                          }),
-                          _vm._v("NO\n            ")
-                        ]
-                      )
-                    ])
-                  : _vm._e()
+                ])
               ]
             )
           ]
