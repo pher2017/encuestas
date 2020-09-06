@@ -4,142 +4,216 @@
             <div class="alert alert-success" role="alert">
                 <h3>Encuestas Sinof 2020</h3>
             </div>
-            <div class="jumbotron">
+           
                 <template>
                     <div class="card-body" style="font-size: 10pt">
-                        <div class="form-group row">
-                            <div class="col-md-6">
-                                <h6>
-                                    Ingrese su RUT sin puntos ni guion (ejemplo:
-                                    12345678)
-                                </h6>
-                                <div class="input-group">
-                                    <input
-                                        type="text"
-                                        v-model="buscar"
-                                        @keyup.enter="listarUsuarios(buscar)"
-                                        class="form-control"
-                                        placeholder="Texto a buscar"
-                                    />
-                                    &nbsp;
-                                    <button
-                                        type="submit"
-                                        @click="listarUsuarios(buscar)"
-                                        class="btn btn-primary"
-                                    >
-                                        Buscar Socio
-                                    </button>
+                        <div v-show="errorIngreso !== 0">
+                            <div
+                                class="form-group row row justify-content-md-center"
+                            >
+                                <div class="col-md-6">
+                                    <h6>
+                                        Ingrese su RUT sin puntos ni guion
+                                        (ejemplo: 12345678)
+                                    </h6>
+                                    <div class="input-group">
+                                        <input
+                                            type="text"
+                                            v-model="buscar"
+                                            @keyup.enter="
+                                                listarUsuarios(buscar)
+                                            "
+                                            class="form-control"
+                                            placeholder="Ingrese su RUT"
+                                        />
+                                        &nbsp;
+                                        <button
+                                            type="submit"
+                                            @click="listarUsuarios(buscar)"
+                                            class="btn btn-primary"
+                                        >
+                                            Buscar Socio
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                            {{arrayGet}}
+                            <div
+                                class="form-group row row justify-content-md-center"
+                            >
+                                <div v-if="nombre !== ''" class="col-md-6">
+                                    <div class="form-group input-group mb-3">
 
-                        <div class="form-group row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <input
-                                        v-if="nombre !== ''"
-                                        type="text"
-                                        class="form-control"
-                                        disabled
-                                        placeholder="Nombre Socio"
-                                        v-model="nombre"
-                                    />
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <input
-                                        id="email"
-                                        v-if="nombre !== ''"
-                                        type="email"
-                                        name="email"
-                                        class="form-control"
-                                        placeholder="Por favor Ingrese su Correo"
-                                        v-model="email"
-                                    />
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <div v-if="nombre !== ''" class="col-md-6">
-                                <div class="form-group">
-                                    <input
-                                        type="text"
-                                        class="form-control"
-                                        placeholder="telefono"
-                                        v-model="telefono"
-                                    />
-                                </div>
-                            </div>
-                        </div>
-                        <div class="text-center text-error">
-                            <h6>
-                                <small
-                                    ><div
-                                        class="alert alert-danger"
-                                        v-for="error in errorUsuario"
-                                        :key="error"
-                                        v-text="error"
-                                    >
-                                        {{ error }}
-                                    </div></small
-                                >
-                            </h6>
-                        </div>
-                        <div class="form-group row">
-                            <div v-if="nombre !== ''" class="col-md-6">
-                                <div class="form-group">
-                                    <button
-                                        class="btn btn-info form-control btnagregar"
-                                        @click="validaUsuario()"
-                                    >
-                                        Validar
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="card bg-light text-dark">
-                            <div class="form-group row">
-                                <div v-if="errorIngreso !== 1" class="col-md-6">
-                                    <div class="form-group">
-                                        <h4>{{ pregunta }}</h4>
+                                        <div class="input-group-prepend">
+                                                <span class="input-group-text"
+                                                    >Nombre</span
+                                                >
+                                            </div>
+                                        <input
+                                            
+                                            type="text"
+                                            class="form-control"
+                                            disabled
+                                            placeholder="Nombre Socio"
+                                            v-model="nombre"
+                                        />
                                     </div>
                                 </div>
                             </div>
                             <div
-                                v-if="errorIngreso !== 1"
-                                class="form-check-inline"
+                                class="form-group row row justify-content-md-center"
                             >
-                                <label class="form-check-label" for="radio1">
-                                    <input
-                                        type="radio"
-                                        class="form-check-input"
-                                        id="radio1"
-                                        name="optradio"
-                                        v-model="valor"
-                                        value="1"
-                                    />SI
-                                </label>
+                                <div v-if="nombre !== '' " class="col-md-6">
+                                    <div v-if="email == null || email == '' " class="form-group">
+                                        <label
+                                            ><h5>
+                                                <small
+                                                    >Antes de ingresar a la
+                                                    encuesta, actualize sus
+                                                    datos por favor
+                                                </small>
+                                            </h5></label
+                                        >
+                                    </div>
+                                </div>
                             </div>
                             <div
-                                v-if="errorIngreso !== 1"
-                                class="form-check-inline"
+                                class="form-group row row justify-content-md-center "
                             >
-                                <label class="form-check-label" for="radio2">
-                                    <input
-                                        type="radio"
-                                        class="form-check-input"
-                                        id="radio2"
-                                        name="optradio"
-                                        value="2"
-                                        v-model="valor"
-                                    />NO
-                                </label>
+                                <div  v-if="nombre !== ''" class="col-md-6">
+                                    <div v-if="email == null || email == ''" class="form-group input-group mb-3">
+                                       
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"
+                                                    >Correo</span
+                                                >
+                                            </div>
+                                            <input
+                                                id="email"
+                                                type="email"
+                                                name="email"
+                                                class="form-control"
+                                                placeholder="Por favor Ingrese un Correo"
+                                                v-model="email"
+                                            />
+                                       
+                                    </div>
+                                </div>
                             </div>
-                            <div v-if="errorIngreso !== 1" class="modal-footer">
+                            <div
+                                class="form-group row row justify-content-md-center"
+                            >
+                                <div v-if="nombre !== ''" class="col-md-6">
+                                    <div v-if="telefono == null || telefono == null" class="form-group input-group mb-3">
+                                        <div class="input-group-prepend">
+                                                <span class="input-group-text"
+                                                    >Telefono</span
+                                                >
+                                            </div>
+                                        <input
+                                            type="text"
+                                            class="form-control"
+                                            placeholder="Por favor Ingrese un N° Telefono"
+                                            v-model="telefono"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            <div
+                                class="text-center text-error row justify-content-md-center"
+                            >
+                                <div class="col-md-6">
+                                    <h6>
+                                        <small>
+                                            <div
+                                                class="alert alert-danger"
+                                                v-for="error in errorUsuario"
+                                                :key="error"
+                                                v-text="error"
+                                            >
+                                                {{ error }}
+                                            </div>
+                                        </small>
+                                    </h6>
+                                </div>
+                            </div>
+                            <div
+                                class="form-group row row justify-content-md-center"
+                            >
+                                <div v-if="nombre !== ''" class="col-md-6">
+                                    <div class="form-group">
+                                        <button
+                                            class="btn btn-info form-control btnagregar"
+                                            @click="validaRut()"
+                                        >
+                                            Validar Datos
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            {{idusers2}}
+                        </div>
+                        <div class="card text-center" v-if="errorIngreso !== 1">
+                            <div class="card-header">
+                                <div v-if="errorIngreso !== 1">
+                                    <h5>{{ encuesta }}</h5>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div v-if="errorIngreso !== 1">
+                                    <h5 lass="card-title">{{ pregunta }}</h5>
+                                </div>
+                            </div>
+                            <div v-if="errorIngreso !== 1" class="card-body">
+                                <h6>
+                                    <label
+                                        class="form-check-label"
+                                        for="radio1"
+                                    >
+                                        <input
+                                            type="radio"
+                                            class="form-check-input"
+                                            id="radio1"
+                                            name="optradio"
+                                            v-model="valor"
+                                            value="1"
+                                        />&nbsp;SI
+                                    </label>
+                                    &nbsp;&nbsp;
+                                    <label
+                                        class="form-check-label"
+                                        for="radio2"
+                                    >
+                                        <input
+                                            type="radio"
+                                            class="form-check-input"
+                                            id="radio2"
+                                            name="optradio"
+                                            value="2"
+                                            v-model="valor"
+                                        />&nbsp;NO
+                                    </label>
+                                </h6>
+                                <br />
+                                <p></p>
+                                <div
+                                class="text-center text-error row justify-content-md-center"
+                            >
+                                <div class="col-md-6">
+                                    <h6>
+                                        <small>
+                                            <div
+                                                class="alert alert-danger"
+                                                v-for="opcion in errorRespuesta"
+                                                :key="opcion"
+                                                v-text="opcion"
+                                            >
+                                                {{ opcion }}
+                                            </div>
+                                        </small>
+                                    </h6>
+                                </div>
+                            </div>
                                 <button
                                     type="button"
                                     class="btn btn-primary"
@@ -147,13 +221,13 @@
                                         registrarIngreso(), actualizarUsers()
                                     "
                                 >
-                                    Enviar
+                                    Enviar Encuesta
                                 </button>
                             </div>
                         </div>
                     </div>
                 </template>
-            </div>
+            
         </div>
     </main>
 </template>
@@ -166,23 +240,32 @@ export default {
     data() {
         return {
             idusers: 0,
+            idusers2:0,
             idregion: 0,
             arrayUsers: [],
             arrayUsers1: [],
             arrayIngreso: [],
             arrayPregunta: [],
             arrayRespuesta: [],
+            arrayEncuesta: [],
+            arrayParticipacion:[],
+            arrayGet:[],
             nombre: "",
             rut: "",
             email: "",
             telefono: "",
             buscar: "",
             pregunta: "",
+            encuesta: "",
             valor: 0,
             errorUsuario: [],
+            errorRespuesta: [],
             errorIngreso: 1,
+            errorOpcion:0,
             idencuesta: 0,
-            idpregunta: 0
+            idpregunta: 0,
+            actualizar: 0,
+            encontrar:0
         };
     },
     components: {
@@ -197,16 +280,16 @@ export default {
                 .then(function(response) {
                     var respuesta = response.data;
                     me.arrayUsers1 = respuesta.users.data;
-                    var j = 0;
-                    if (Object.entries(me.arrayUsers1).length === 0) {
+                    
+                    if (me.arrayUsers1.length === 0) {
                         swal({
                             type: "error",
                             title: "Valida Socio",
                             text:
                                 "el RUT Ingresado no existe en nuestra Base de datos, favor comunicarse con su Delegado"
                         });
-                        console.log(me.arrayUsers1);
                     } else {
+                        
                         for (var i = 0; i < me.arrayUsers1.length; i++) {
                             me.nombre = me.arrayUsers1[i].nombre;
                             me.email = me.arrayUsers1[i].correo;
@@ -214,6 +297,8 @@ export default {
                             me.idusers = me.arrayUsers1[i].id;
                             me.idregion = me.arrayUsers1[i].idregion;
                         }
+                        me.getParticipacion();
+                       
                     }
                 })
                 .catch(function(error) {
@@ -278,6 +363,24 @@ export default {
                     console.log(error);
                 });
         },
+        selectEncuesta() {
+            let me = this;
+            var url = "encuesta";
+            axios
+                .get(url)
+                .then(function(response) {
+                    var respuesta = response.data;
+                    me.arrayEncuesta = respuesta.encuestas;
+                    me.pagination = respuesta.pagination;
+
+                    for (var i = 0; i < me.arrayEncuesta.length; i++) {
+                        me.encuesta = me.arrayEncuesta[i].descripcion;
+                    }
+                })
+                .catch(function(error) {
+                    console.log(error);
+                });
+        },
 
         selectRespuesta() {
             let me = this;
@@ -293,31 +396,47 @@ export default {
                     console.log(error);
                 });
         },
+
+        getParticipacion() {
+           let me = this;
+            var url = "get/user";
+            axios
+                .get(url, { params: { j: this.idusers } })
+                .then(function(response) {
+                    let respuesta = response.data;
+                    me.arrayGet = respuesta.users;
+                    
+                   
+                    
+                })
+                
+                .catch(function(error) {
+                    console.log(error);
+                });
+                
+        },
+
+        validaRut(){
+              if(Object.keys(this.arrayGet).length == undefined ){
+                  consoler.log("prueba");
+               }else{
+                    this.idusers2=this.arrayGet.iduser;
+               console.log(this.idusers2);
+               }
+               
+                     
+                     
+        },
+
         validEmail: function(email) {
             var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
             return re.test(email);
         },
-        checkForm: function(e) {
-            this.errors = [];
 
-            if (!this.name) {
-                this.errors.push("El nombre es obligatorio.");
-            }
-            if (!this.email) {
-                this.errors.push("El correo electrónico es obligatorio.");
-            } else if (!this.validEmail(this.email)) {
-                this.errors.push("El correo electrónico debe ser válido.");
-            }
-
-            if (!this.errors.length) {
-                return true;
-            }
-
-            e.preventDefault();
-        },
         validaUsuario() {
             this.errorIngreso = 0;
             this.errorUsuario = [];
+            this.idusers2=this.arrayGet.iduser
 
             if (this.email == "" || this.email == null) {
                 this.errorUsuario.push("Ingrese Un correo");
@@ -328,11 +447,16 @@ export default {
                 this.errorUsuario.push("Ingrese Un Telefono");
             }
 
+
             if (this.errorUsuario.length) this.errorIngreso = 1;
 
             return this.errorIngreso;
         },
         registrarIngreso() {
+            if (this.validarRespuesta()) {
+				return;
+			}
+
             let me = this;
 
             axios
@@ -344,22 +468,25 @@ export default {
                     idrespuesta: this.valor
                 })
                 .then(function(response) {
-                    me.idusers = 0;
-                    me.articulo = "";
-                    me.idnivel = 0;
-                    me.Nivel = "";
-                    me.cantidad1 = 0;
-                    me.observacion1 = "";
-                    me.activo = 0;
-                    me.arrayUsers1 = [];
+                    me.idregion = 0;
+                    idencuesta = 0;
+                    idpregunta = 0;
                     me.arrayPregunta = [];
                     me.arrayRespuesta = [];
                     me.arrayDetalle = [];
                     me.errorUsuario = [];
+                   
                 })
                 .catch(function(error) {
                     console.log(error);
                 });
+                Swal({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Encuesta Enviada',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
             location.reload();
         },
         actualizarUsers() {
@@ -371,18 +498,35 @@ export default {
                     telefono: me.telefono,
                     id: me.idusers
                 })
-                .then(function(response) {
-                    me.listarUsuarios();
-                })
+                .then(function(response) {})
                 .catch(function(error) {
                     console.log(error);
                 });
-        }
+        },
+        validarRespuesta(){
+            
+            this.errorOpcion = 0;
+            this.errorRespuesta = [];
+
+            if (this.valor == 0 || this.valor == "") 
+                this.errorRespuesta.push("Seleccione una Opcion");
+           
+            
+
+            if (this.errorRespuesta.length) this.errorOpcion = 1;
+
+            return this.errorOpcion;
+
+			
+		}
     },
     mounted() {
         this.selectReporte();
         this.selectPregunta();
         this.selectRespuesta();
+        this.selectEncuesta();
+    
+       
     }
 };
 </script>
