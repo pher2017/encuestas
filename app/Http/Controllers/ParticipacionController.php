@@ -8,7 +8,7 @@ use App\Participacion;
 class ParticipacionController extends Controller
 {
     public function index(){
-
+        if (!$request->ajax()) return redirect('/');
         $participacion = Participacion::join('encuestas','participacion.idencuesta','=','encuestas.id')
         ->join('users','participacion.iduser','=','users.id')
         ->select(
@@ -29,7 +29,7 @@ class ParticipacionController extends Controller
     }
 
     public function getUser(Request $request){
-
+        if (!$request->ajax()) return redirect('/');
         $users=Participacion::join('encuestas','participacion.idencuesta','=','encuestas.id')
         ->join('users','participacion.iduser','=','users.id')
         ->select(

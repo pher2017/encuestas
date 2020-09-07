@@ -8,7 +8,7 @@
     <meta name="author" content="Patricio Hernandez ">
     <meta name="keyword" content="Sistema ">
 
-    <title>Sistema </title>
+    <title>Encuestas </title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
 
@@ -32,7 +32,11 @@
                 <encuesta></encuesta>
 
         </div>
-
+        <footer>
+<div class="container">
+  <h6><small>Patricio Hernández 2020</small></h6>
+</div>
+</footer>
     <script src="js/plantilla.js"></script>
     </body>
 </html>

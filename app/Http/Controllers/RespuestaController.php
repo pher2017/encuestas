@@ -10,7 +10,7 @@ use App\Pregunta;
 class RespuestaController extends Controller
 {
     public function index(){
-
+        if (!$request->ajax()) return redirect('/');
         $respuestas = Respuesta::join('inputs','respuestas.idinput','=','inputs.id')
         ->join('preguntas','respuestas.idpregunta','=','preguntas.id')
         ->select(
@@ -28,7 +28,7 @@ class RespuestaController extends Controller
     }
 
     public function all(Request $request){
-     //if (!$request->ajax()) return redirect('/');
+     if (!$request->ajax()) return redirect('/');
         $respuestas=Respuesta::all();
 
         return ['respuestas'=>$respuestas];

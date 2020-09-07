@@ -1,10 +1,12 @@
 <template>
     <main class="main">
         <div class="container">
-            <div class="alert alert-success" role="alert">
-                <h3>Encuestas Sinof 2020</h3>
+            <div class="row alert alert-primary ">
+            <div class="col-md-12" role="alert">
+                
+                <h3><img src='images/logo1.png' class="rounded" alt="Sinof"> &nbsp;&nbsp;  Encuestas Sinof 2020 </h3>
             </div>
-           
+            </div>
                 <template>
                     <div class="card-body" style="font-size: 10pt">
                         <div v-show="errorIngreso !== 0">
@@ -13,7 +15,7 @@
                             >
                                 <div class="col-md-6">
                                     <h6>
-                                        Ingrese su RUT sin puntos ni guion
+                                        Ingrese su RUT sin puntos y sin digito verificador
                                         (ejemplo: 12345678)
                                     </h6>
                                     <div class="input-group">

@@ -10,6 +10,7 @@ use App\Participacion;
 class EncuestaController extends Controller
 {
     public function index(){
+        if (!$request->ajax()) return redirect('/');
 
         $encuestas= Encuesta::all();
 
@@ -19,7 +20,7 @@ class EncuestaController extends Controller
 
     public function store(Request $request)
     {
-        //if (!$request->ajax()) return redirect('/');
+        if (!$request->ajax()) return redirect('/');
 
         try {
             DB::beginTransaction();

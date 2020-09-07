@@ -2148,6 +2148,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 
@@ -38745,7 +38747,7 @@ var render = function() {
                       _c("div", { staticClass: "col-md-6" }, [
                         _c("h6", [
                           _vm._v(
-                            "\n                                    Ingrese su RUT sin puntos ni guion\n                                    (ejemplo: 12345678)\n                                "
+                            "\n                                    Ingrese su RUT sin puntos y sin digito verificador\n                                    (ejemplo: 12345678)\n                                "
                           )
                         ]),
                         _vm._v(" "),
@@ -39226,11 +39228,17 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      { staticClass: "alert alert-success", attrs: { role: "alert" } },
-      [_c("h3", [_vm._v("Encuestas Sinof 2020")])]
-    )
+    return _c("div", { staticClass: "row alert alert-primary " }, [
+      _c("div", { staticClass: "col-md-12", attrs: { role: "alert" } }, [
+        _c("h3", [
+          _c("img", {
+            staticClass: "rounded",
+            attrs: { src: "images/logo1.png", alt: "Sinof" }
+          }),
+          _vm._v("     Encuestas Sinof 2020 ")
+        ])
+      ])
+    ])
   },
   function() {
     var _vm = this

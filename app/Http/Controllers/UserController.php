@@ -10,7 +10,7 @@ use App\Region;
 class UserController extends Controller
 {
     public function index(Request $request){
-        //if (!$request->ajax()) return redirect('/');
+        if (!$request->ajax()) return redirect('/');
         $buscar = $request->buscar;
         if($buscar ==''){
             return [];
@@ -41,7 +41,7 @@ class UserController extends Controller
     }
     public function selectUsers(Request $request)
     {
-        //if (!$request->ajax()) return redirect('/');
+        if (!$request->ajax()) return redirect('/');
         $filtro = $request->filtro;
         $user = User::where('numero', 'like', '%' . $filtro . '%')
             ->select("*", DB::RAW("CONCAT(users.numero,'-',users.dv,' ',users.nombre) as full "))->orderBy('id', 'asc')->get();
@@ -49,6 +49,7 @@ class UserController extends Controller
     }
 
     public function selectReporte(Request $request){
+        if (!$request->ajax()) return redirect('/');
         $buscar = $request->buscar;
        
 
