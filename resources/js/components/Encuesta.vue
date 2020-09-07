@@ -29,7 +29,7 @@
                                         &nbsp;
                                         <button
                                             type="submit"
-                                            @click="listarUsuarios(buscar)"
+                                            @click.stop.prevent="listarUsuarios(buscar),getParticipacion()"
                                             class="btn btn-primary"
                                         >
                                             Buscar Socio
@@ -37,7 +37,7 @@
                                     </div>
                                 </div>
                             </div>
-                            {{arrayGet}}
+                            
                             <div
                                 class="form-group row row justify-content-md-center"
                             >
@@ -64,7 +64,7 @@
                                 class="form-group row row justify-content-md-center"
                             >
                                 <div v-if="nombre !== '' " class="col-md-6">
-                                    <div v-if="email == null || email == '' " class="form-group">
+                                    <div v-if="arrayGet===null " class="form-group">
                                         <label
                                             ><h5>
                                                 <small
@@ -81,7 +81,7 @@
                                 class="form-group row row justify-content-md-center "
                             >
                                 <div  v-if="nombre !== ''" class="col-md-6">
-                                    <div v-if="email == null || email == ''" class="form-group input-group mb-3">
+                                    <div v-if="arrayGet===null" class="form-group input-group mb-3">
                                        
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"
@@ -104,7 +104,7 @@
                                 class="form-group row row justify-content-md-center"
                             >
                                 <div v-if="nombre !== ''" class="col-md-6">
-                                    <div v-if="telefono == null || telefono == null" class="form-group input-group mb-3">
+                                    <div v-if="arrayGet===null" class="form-group input-group mb-3">
                                         <div class="input-group-prepend">
                                                 <span class="input-group-text"
                                                     >Telefono</span
@@ -144,16 +144,16 @@
                                     <div class="form-group">
                                         <button
                                             class="btn btn-info form-control btnagregar"
-                                            @click="validaRut()"
+                                            @click="validaUsuario()"
                                         >
                                             Validar Datos
                                         </button>
                                     </div>
                                 </div>
                             </div>
-                            {{idusers2}}
+                            
                         </div>
-                        <div class="card text-center" v-if="errorIngreso !== 1">
+                        <div class="card text-center" v-if="errorIngreso !== 1 && idusers2===0">
                             <div class="card-header">
                                 <div v-if="errorIngreso !== 1">
                                     <h5>{{ encuesta }}</h5>
@@ -249,7 +249,7 @@ export default {
             arrayRespuesta: [],
             arrayEncuesta: [],
             arrayParticipacion:[],
-            arrayGet:[],
+            arrayGet:null,
             nombre: "",
             rut: "",
             email: "",
@@ -298,6 +298,7 @@ export default {
                             me.idregion = me.arrayUsers1[i].idregion;
                         }
                         me.getParticipacion();
+                        me.validaRut();
                        
                     }
                 })
@@ -417,8 +418,8 @@ export default {
         },
 
         validaRut(){
-              if(Object.keys(this.arrayGet).length == undefined ){
-                  consoler.log("prueba");
+              if(this.arrayGet === null ){
+                  this.rut="ok";
                }else{
                     this.idusers2=this.arrayGet.iduser;
                console.log(this.idusers2);
@@ -434,9 +435,10 @@ export default {
         },
 
         validaUsuario() {
+            this.validaRut();
             this.errorIngreso = 0;
             this.errorUsuario = [];
-            this.idusers2=this.arrayGet.iduser
+           
 
             if (this.email == "" || this.email == null) {
                 this.errorUsuario.push("Ingrese Un correo");
@@ -445,6 +447,18 @@ export default {
             }
             if (this.telefono == "" || this.telefono == null) {
                 this.errorUsuario.push("Ingrese Un Telefono");
+            }
+            if (this.idusers2 == this.idusers ) {
+                swal({
+                            type: "error",
+                            title: "Valida Votación",
+                            text:
+                                "el RUT Ingresado ya ha realizado una votación para esta encuesta"
+                                
+                        }).then(function(){
+                        location.reload();
+                    })
+                
             }
 
 

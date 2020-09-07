@@ -2164,7 +2164,7 @@ __webpack_require__.r(__webpack_exports__);
       arrayRespuesta: [],
       arrayEncuesta: [],
       arrayParticipacion: [],
-      arrayGet: [],
+      arrayGet: null,
       nombre: "",
       rut: "",
       email: "",
@@ -2210,6 +2210,7 @@ __webpack_require__.r(__webpack_exports__);
           }
 
           me.getParticipacion();
+          me.validaRut();
         }
       })["catch"](function (error) {
         console.log(error);
@@ -2307,8 +2308,8 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     validaRut: function validaRut() {
-      if (Object.keys(this.arrayGet).length == undefined) {
-        consoler.log("prueba");
+      if (this.arrayGet === null) {
+        this.rut = "ok";
       } else {
         this.idusers2 = this.arrayGet.iduser;
         console.log(this.idusers2);
@@ -2319,9 +2320,9 @@ __webpack_require__.r(__webpack_exports__);
       return re.test(email);
     },
     validaUsuario: function validaUsuario() {
+      this.validaRut();
       this.errorIngreso = 0;
       this.errorUsuario = [];
-      this.idusers2 = this.arrayGet.iduser;
 
       if (this.email == "" || this.email == null) {
         this.errorUsuario.push("Ingrese Un correo");
@@ -2331,6 +2332,16 @@ __webpack_require__.r(__webpack_exports__);
 
       if (this.telefono == "" || this.telefono == null) {
         this.errorUsuario.push("Ingrese Un Telefono");
+      }
+
+      if (this.idusers2 == this.idusers) {
+        swal({
+          type: "error",
+          title: "Valida Votación",
+          text: "el RUT Ingresado ya ha realizado una votación para esta encuesta"
+        }).then(function () {
+          location.reload();
+        });
       }
 
       if (this.errorUsuario.length) this.errorIngreso = 1;
@@ -38788,7 +38799,10 @@ var render = function() {
                               attrs: { type: "submit" },
                               on: {
                                 click: function($event) {
-                                  return _vm.listarUsuarios(_vm.buscar)
+                                  $event.stopPropagation()
+                                  $event.preventDefault()
+                                  _vm.listarUsuarios(_vm.buscar),
+                                    _vm.getParticipacion()
                                 }
                               }
                             },
@@ -38802,11 +38816,7 @@ var render = function() {
                       ])
                     ]
                   ),
-                  _vm._v(
-                    "\n                        " +
-                      _vm._s(_vm.arrayGet) +
-                      "\n                        "
-                  ),
+                  _vm._v(" "),
                   _c(
                     "div",
                     {
@@ -38863,7 +38873,7 @@ var render = function() {
                     [
                       _vm.nombre !== ""
                         ? _c("div", { staticClass: "col-md-6" }, [
-                            _vm.email == null || _vm.email == ""
+                            _vm.arrayGet === null
                               ? _c("div", { staticClass: "form-group" }, [
                                   _vm._m(2)
                                 ])
@@ -38882,7 +38892,7 @@ var render = function() {
                     [
                       _vm.nombre !== ""
                         ? _c("div", { staticClass: "col-md-6" }, [
-                            _vm.email == null || _vm.email == ""
+                            _vm.arrayGet === null
                               ? _c(
                                   "div",
                                   {
@@ -38935,7 +38945,7 @@ var render = function() {
                     [
                       _vm.nombre !== ""
                         ? _c("div", { staticClass: "col-md-6" }, [
-                            _vm.telefono == null || _vm.telefono == null
+                            _vm.arrayGet === null
                               ? _c(
                                   "div",
                                   {
@@ -39029,7 +39039,7 @@ var render = function() {
                                     "btn btn-info form-control btnagregar",
                                   on: {
                                     click: function($event) {
-                                      return _vm.validaRut()
+                                      return _vm.validaUsuario()
                                     }
                                   }
                                 },
@@ -39043,16 +39053,11 @@ var render = function() {
                           ])
                         : _vm._e()
                     ]
-                  ),
-                  _vm._v(
-                    "\n                        " +
-                      _vm._s(_vm.idusers2) +
-                      "\n                    "
                   )
                 ]
               ),
               _vm._v(" "),
-              _vm.errorIngreso !== 1
+              _vm.errorIngreso !== 1 && _vm.idusers2 === 0
                 ? _c("div", { staticClass: "card text-center" }, [
                     _c("div", { staticClass: "card-header" }, [
                       _vm.errorIngreso !== 1
