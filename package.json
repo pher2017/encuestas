@@ -25,7 +25,9 @@
     },
     "dependencies": {
         "@ttskch/select2-bootstrap4-theme": "^1.4.0",
+        "chart.js": "^2.9.3",
         "select2": "^4.0.13",
+        "vue-chartjs": "^3.5.1",
         "vue-select": "^3.10.8"
     }
 }

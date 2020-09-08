@@ -16,6 +16,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/chart', function () {
+    return view('chart.chart');
+});
 
 Route::get('/respuesta','RespuestaController@index');
 Route::get('/users','UserController@index');

@@ -26,10 +26,8 @@
     <body>
         <div id="app">
 
-
-
-
                 <encuesta></encuesta>
+                
 
         </div>
         <footer>

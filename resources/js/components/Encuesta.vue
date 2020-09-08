@@ -20,8 +20,8 @@
                                     </h6>
                                     <div class="input-group">
                                         <input
-                                            type="text"
-                                            v-model="buscar"
+                                             type="number"
+                                            v-model.number="buscar"
                                             @keyup.enter="
                                                 listarUsuarios(buscar)
                                             "
@@ -256,7 +256,7 @@ export default {
             rut: "",
             email: "",
             telefono: "",
-            buscar: "",
+            buscar: '',
             pregunta: "",
             encuesta: "",
             valor: 0,
@@ -275,6 +275,8 @@ export default {
     },
     methods: {
         listarUsuarios: function listarUsuarios(buscar) {
+            this.nombre= "",
+            this.arrayUsers1=[];
             let me = this;
             var url = "users?buscar=" + buscar;
             axios
@@ -283,7 +285,7 @@ export default {
                     var respuesta = response.data;
                     me.arrayUsers1 = respuesta.users.data;
                     
-                    if (me.arrayUsers1.length === 0) {
+                    if (me.arrayUsers1.length === 0 ) {
                         swal({
                             type: "error",
                             title: "Valida Socio",
