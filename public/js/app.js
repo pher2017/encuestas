@@ -2400,7 +2400,6 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   mounted: function mounted() {
-    this.selectReporte();
     this.selectPregunta();
     this.selectRespuesta();
     this.selectEncuesta();
@@ -39060,17 +39059,21 @@ var render = function() {
               ),
               _vm._v(" "),
               _vm.errorIngreso !== 1 && _vm.idusers2 === 0
-                ? _c("div", { staticClass: "card text-center" }, [
+                ? _c("div", { staticClass: "card text-justify" }, [
                     _c("div", { staticClass: "card-header" }, [
                       _vm.errorIngreso !== 1
-                        ? _c("div", [_c("h5", [_vm._v(_vm._s(_vm.encuesta))])])
+                        ? _c("div", [
+                            _c("h5", [
+                              _c("small", [_vm._v(_vm._s(_vm.encuesta))])
+                            ])
+                          ])
                         : _vm._e()
                     ]),
                     _vm._v(" "),
-                    _c("div", { staticClass: "card-body" }, [
+                    _c("div", { staticClass: "card-body text-center" }, [
                       _vm.errorIngreso !== 1
                         ? _c("div", [
-                            _c("h5", { attrs: { lass: "card-title" } }, [
+                            _c("h6", { attrs: { lass: "card-title" } }, [
                               _vm._v(_vm._s(_vm.pregunta))
                             ])
                           ])
@@ -39078,7 +39081,7 @@ var render = function() {
                     ]),
                     _vm._v(" "),
                     _vm.errorIngreso !== 1
-                      ? _c("div", { staticClass: "card-body" }, [
+                      ? _c("div", { staticClass: "card-body text-center" }, [
                           _c("h6", [
                             _c(
                               "label",

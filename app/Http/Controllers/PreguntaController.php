@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Pregunta;
 class PreguntaController extends Controller
 {
-    public function index(){
+    public function index(Request $request){
         if (!$request->ajax()) return redirect('/');
         $preguntas = Pregunta::all();
 

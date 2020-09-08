@@ -9,7 +9,7 @@ use App\Participacion;
 
 class EncuestaController extends Controller
 {
-    public function index(){
+    public function index(Request $request){
         if (!$request->ajax()) return redirect('/');
 
         $encuestas= Encuesta::all();

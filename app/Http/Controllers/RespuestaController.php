@@ -9,7 +9,7 @@ use App\Pregunta;
 
 class RespuestaController extends Controller
 {
-    public function index(){
+    public function index(Request $request){
         if (!$request->ajax()) return redirect('/');
         $respuestas = Respuesta::join('inputs','respuestas.idinput','=','inputs.id')
         ->join('preguntas','respuestas.idpregunta','=','preguntas.id')

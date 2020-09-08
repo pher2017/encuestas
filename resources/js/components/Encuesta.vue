@@ -155,18 +155,18 @@
                             </div>
                             
                         </div>
-                        <div class="card text-center" v-if="errorIngreso !== 1 && idusers2===0">
+                        <div class="card text-justify" v-if="errorIngreso !== 1 && idusers2===0">
                             <div class="card-header">
                                 <div v-if="errorIngreso !== 1">
-                                    <h5>{{ encuesta }}</h5>
+                                    <h5><small>{{ encuesta }}</small></h5>
                                 </div>
                             </div>
-                            <div class="card-body">
+                            <div class="card-body text-center">
                                 <div v-if="errorIngreso !== 1">
-                                    <h5 lass="card-title">{{ pregunta }}</h5>
+                                    <h6 lass="card-title">{{ pregunta }}</h6>
                                 </div>
                             </div>
-                            <div v-if="errorIngreso !== 1" class="card-body">
+                            <div v-if="errorIngreso !== 1" class="card-body text-center">
                                 <h6>
                                     <label
                                         class="form-check-label"
@@ -537,7 +537,7 @@ export default {
 		}
     },
     mounted() {
-        this.selectReporte();
+        
         this.selectPregunta();
         this.selectRespuesta();
         this.selectEncuesta();
