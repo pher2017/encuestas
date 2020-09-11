@@ -25,8 +25,13 @@
     </head>
     <body>
         <div id="app">
-
-                <encuesta></encuesta>
+        <div class="row alert alert-primary ">
+            <div class="col-md-12" role="alert">
+                
+                <h3><img src='images/logo1.png' class="rounded" alt="Sinof"> &nbsp;&nbsp;  Encuestas Sinof 2020 </h3>
+            </div>
+                <!-- <encuesta></encuesta> -->
+         </div>      
                 
 
         </div>
