@@ -62,11 +62,11 @@
                                     </div>
                                 </div>
                             </div>
-                            <div
+                            <!-- <div
                                 class="form-group row row justify-content-md-center"
                             >
-                                <div v-if="nombre !== '' " class="col-md-6">
-                                    <div v-if="arrayGet===null " class="form-group">
+                                 <div v-if="nombre !== '' " class="col-md-6">
+                                    <div  class="form-group">
                                         <label
                                             ><h5>
                                                 <small
@@ -77,13 +77,13 @@
                                             </h5></label
                                         >
                                     </div>
-                                </div>
-                            </div>
+                                </div> 
+                            </div> -->
                             <div
                                 class="form-group row row justify-content-md-center "
                             >
                                 <div  v-if="nombre !== ''" class="col-md-6">
-                                    <div v-if="arrayGet===null" class="form-group input-group mb-3">
+                                    <div  class="form-group input-group mb-3">
                                        
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"
@@ -94,6 +94,7 @@
                                                 id="email"
                                                 type="email"
                                                 name="email"
+                                                disabled
                                                 class="form-control"
                                                 placeholder="Por favor Ingrese un Correo"
                                                 v-model="email"
@@ -106,7 +107,7 @@
                                 class="form-group row row justify-content-md-center"
                             >
                                 <div v-if="nombre !== ''" class="col-md-6">
-                                    <div v-if="arrayGet===null" class="form-group input-group mb-3">
+                                    <div  class="form-group input-group mb-3">
                                         <div class="input-group-prepend">
                                                 <span class="input-group-text"
                                                     >Telefono</span
@@ -116,6 +117,7 @@
                                             type="text"
                                             class="form-control"
                                             placeholder="Por favor Ingrese un N° Telefono"
+                                            disabled
                                             v-model="telefono"
                                         />
                                     </div>

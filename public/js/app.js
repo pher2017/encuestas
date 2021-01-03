@@ -2278,6 +2278,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 
@@ -77820,69 +77822,46 @@ var render = function() {
                     "div",
                     {
                       staticClass:
-                        "form-group row row justify-content-md-center"
-                    },
-                    [
-                      _vm.nombre !== ""
-                        ? _c("div", { staticClass: "col-md-6" }, [
-                            _vm.arrayGet === null
-                              ? _c("div", { staticClass: "form-group" }, [
-                                  _vm._m(2)
-                                ])
-                              : _vm._e()
-                          ])
-                        : _vm._e()
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    {
-                      staticClass:
                         "form-group row row justify-content-md-center "
                     },
                     [
                       _vm.nombre !== ""
                         ? _c("div", { staticClass: "col-md-6" }, [
-                            _vm.arrayGet === null
-                              ? _c(
-                                  "div",
-                                  {
-                                    staticClass: "form-group input-group mb-3"
+                            _c(
+                              "div",
+                              { staticClass: "form-group input-group mb-3" },
+                              [
+                                _vm._m(2),
+                                _vm._v(" "),
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.email,
+                                      expression: "email"
+                                    }
+                                  ],
+                                  staticClass: "form-control",
+                                  attrs: {
+                                    id: "email",
+                                    type: "email",
+                                    name: "email",
+                                    disabled: "",
+                                    placeholder: "Por favor Ingrese un Correo"
                                   },
-                                  [
-                                    _vm._m(3),
-                                    _vm._v(" "),
-                                    _c("input", {
-                                      directives: [
-                                        {
-                                          name: "model",
-                                          rawName: "v-model",
-                                          value: _vm.email,
-                                          expression: "email"
-                                        }
-                                      ],
-                                      staticClass: "form-control",
-                                      attrs: {
-                                        id: "email",
-                                        type: "email",
-                                        name: "email",
-                                        placeholder:
-                                          "Por favor Ingrese un Correo"
-                                      },
-                                      domProps: { value: _vm.email },
-                                      on: {
-                                        input: function($event) {
-                                          if ($event.target.composing) {
-                                            return
-                                          }
-                                          _vm.email = $event.target.value
-                                        }
+                                  domProps: { value: _vm.email },
+                                  on: {
+                                    input: function($event) {
+                                      if ($event.target.composing) {
+                                        return
                                       }
-                                    })
-                                  ]
-                                )
-                              : _vm._e()
+                                      _vm.email = $event.target.value
+                                    }
+                                  }
+                                })
+                              ]
+                            )
                           ])
                         : _vm._e()
                     ]
@@ -77897,43 +77876,40 @@ var render = function() {
                     [
                       _vm.nombre !== ""
                         ? _c("div", { staticClass: "col-md-6" }, [
-                            _vm.arrayGet === null
-                              ? _c(
-                                  "div",
-                                  {
-                                    staticClass: "form-group input-group mb-3"
+                            _c(
+                              "div",
+                              { staticClass: "form-group input-group mb-3" },
+                              [
+                                _vm._m(3),
+                                _vm._v(" "),
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.telefono,
+                                      expression: "telefono"
+                                    }
+                                  ],
+                                  staticClass: "form-control",
+                                  attrs: {
+                                    type: "text",
+                                    placeholder:
+                                      "Por favor Ingrese un N° Telefono",
+                                    disabled: ""
                                   },
-                                  [
-                                    _vm._m(4),
-                                    _vm._v(" "),
-                                    _c("input", {
-                                      directives: [
-                                        {
-                                          name: "model",
-                                          rawName: "v-model",
-                                          value: _vm.telefono,
-                                          expression: "telefono"
-                                        }
-                                      ],
-                                      staticClass: "form-control",
-                                      attrs: {
-                                        type: "text",
-                                        placeholder:
-                                          "Por favor Ingrese un N° Telefono"
-                                      },
-                                      domProps: { value: _vm.telefono },
-                                      on: {
-                                        input: function($event) {
-                                          if ($event.target.composing) {
-                                            return
-                                          }
-                                          _vm.telefono = $event.target.value
-                                        }
+                                  domProps: { value: _vm.telefono },
+                                  on: {
+                                    input: function($event) {
+                                      if ($event.target.composing) {
+                                        return
                                       }
-                                    })
-                                  ]
-                                )
-                              : _vm._e()
+                                      _vm.telefono = $event.target.value
+                                    }
+                                  }
+                                })
+                              ]
+                            )
                           ])
                         : _vm._e()
                     ]
@@ -78200,20 +78176,6 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "input-group-prepend" }, [
       _c("span", { staticClass: "input-group-text" }, [_vm._v("Nombre")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("label", [
-      _c("h5", [
-        _c("small", [
-          _vm._v(
-            "Antes de ingresar a la\n                                                encuesta, actualize sus\n                                                datos por favor\n                                            "
-          )
-        ])
-      ])
     ])
   },
   function() {
