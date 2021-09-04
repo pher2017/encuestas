@@ -1,12 +1,13 @@
 <template>
     <main class="main">
         <div class="container">
-            <div class="row alert alert-primary ">
-            <div class="col-md-12" role="alert">
+             <div class="row ">
+            <div class="col-md-12" role="">
                 
-                <h3><img src='images/logo1.png' class="rounded" alt="Sinof"> &nbsp;&nbsp;  Encuestas Sinof 2020 </h3>
+                <h3><img src='images/logo1.png' class="rounded" alt="Sinof"> &nbsp;&nbsp;  Encuestas Sinof 2021 </h3>
             </div>
             </div>
+                      
                 <template>
                     <div class="card-body" style="font-size: 10pt">
                         <div v-show="errorIngreso !== 0">
@@ -94,7 +95,7 @@
                                                 id="email"
                                                 type="email"
                                                 name="email"
-                                                disabled
+                                                
                                                 class="form-control"
                                                 placeholder="Por favor Ingrese un Correo"
                                                 v-model="email"
@@ -117,7 +118,7 @@
                                             type="text"
                                             class="form-control"
                                             placeholder="Por favor Ingrese un N° Telefono"
-                                            disabled
+                                            
                                             v-model="telefono"
                                         />
                                     </div>
@@ -160,7 +161,7 @@
                         <div class="card text-justify" v-if="errorIngreso !== 1 && idusers2===0">
                             <div class="card-header">
                                 <div v-if="errorIngreso !== 1">
-                                    <h5><small>{{ encuesta }}</small></h5>
+                                    <h5><small>{{ encuesta1 }}</small></h5>
                                 </div>
                             </div>
                             <div class="card-body text-center">
@@ -180,7 +181,7 @@
                                             id="radio1"
                                             name="optradio"
                                             v-model="valor"
-                                            value="1"
+                                            value=1
                                         />&nbsp;SI
                                     </label>
                                     &nbsp;&nbsp;
@@ -193,7 +194,7 @@
                                             class="form-check-input"
                                             id="radio2"
                                             name="optradio"
-                                            value="2"
+                                            value=2
                                             v-model="valor"
                                         />&nbsp;NO
                                     </label>
@@ -228,6 +229,8 @@
                                     Enviar Encuesta
                                 </button>
                             </div>
+                      
+                          
                         </div>
                     </div>
                 </template>
@@ -237,6 +240,7 @@
 </template>
 
 <script>
+
 import Vue from "vue";
 import vSelect from "vue-select";
 import "vue-select/dist/vue-select.css";
@@ -266,10 +270,12 @@ export default {
             errorRespuesta: [],
             errorIngreso: 1,
             errorOpcion:0,
-            idencuesta: 0,
+            idencuesta: 2,
             idpregunta: 0,
             actualizar: 0,
-            encontrar:0
+            encontrar:0,
+            encuesta:2,
+            encuesta1:""
         };
     },
     components: {
@@ -357,13 +363,14 @@ export default {
                 .get(url)
                 .then(function(response) {
                     var respuesta = response.data;
-                    me.arrayPregunta = respuesta.preguntas;
+                    me.arrayPregunta = respuesta.preguntas.data;
                     me.pagination = respuesta.pagination;
 
                     for (var i = 0; i < me.arrayPregunta.length; i++) {
                         me.pregunta = me.arrayPregunta[i].pregunta;
-                        me.idpregunta = me.arrayPregunta[i].id;
-                        me.idencuesta = me.arrayPregunta[i].idencuensta;
+                        me.encuesta1= me.arrayPregunta[i].descripcion;
+                        me.idpregunta = me.arrayPregunta[i].idpregunta;
+                        
                     }
                 })
                 .catch(function(error) {
@@ -377,7 +384,7 @@ export default {
                 .get(url)
                 .then(function(response) {
                     var respuesta = response.data;
-                    me.arrayEncuesta = respuesta.encuestas;
+                    me.arrayEncuesta = respuesta.encuestas.data;
                     me.pagination = respuesta.pagination;
 
                     for (var i = 0; i < me.arrayEncuesta.length; i++) {
@@ -408,7 +415,7 @@ export default {
            let me = this;
             var url = "get/user";
             axios
-                .get(url, { params: { j: this.idusers } })
+                .get(url, { params: { j: this.idusers, k:this.idencuesta } })
                 .then(function(response) {
                     let respuesta = response.data;
                     me.arrayGet = respuesta.users;
@@ -489,7 +496,7 @@ export default {
                 })
                 .then(function(response) {
                     me.idregion = 0;
-                    idencuesta = 0;
+                   
                     idpregunta = 0;
                     me.arrayPregunta = [];
                     me.arrayRespuesta = [];

@@ -10,9 +10,28 @@ use App\Participacion;
 class EncuestaController extends Controller
 {
     public function index(Request $request){
-        if (!$request->ajax()) return redirect('/');
+        //if (!$request->ajax()) return redirect('/');
 
-        $encuestas= Encuesta::all();
+        $encuestas= Encuesta::select(
+            'id',
+            'encuestas.descripcion',
+            'encuestas.fecha',
+        )
+        ->where('encuestas.id','=','2')
+        ->orderBy('encuestas.id', 'asc')->paginate(500);
+
+        return ['encuestas'=>$encuestas];
+
+    }
+    public function getEncuestas(Request $request){
+      
+        $encuestas= Encuesta::select(
+            'id',
+            'encuestas.descripcion',
+            'encuestas.fecha'
+        )
+        ->where('encuestas.id','=',2)
+        ->orderBy('encuestas.id', 'asc')->paginate(500);
 
         return ['encuestas'=>$encuestas];
 

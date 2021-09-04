@@ -2042,6 +2042,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_select__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue_select__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var vue_select_dist_vue_select_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue-select/dist/vue-select.css */ "./node_modules/vue-select/dist/vue-select.css");
 /* harmony import */ var vue_select_dist_vue_select_css__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(vue_select_dist_vue_select_css__WEBPACK_IMPORTED_MODULE_2__);
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
 //
 //
 //
@@ -2285,7 +2290,9 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
-    return {
+    var _ref;
+
+    return _ref = {
       idusers: 0,
       idusers2: 0,
       idregion: 0,
@@ -2309,11 +2316,11 @@ __webpack_require__.r(__webpack_exports__);
       errorRespuesta: [],
       errorIngreso: 1,
       errorOpcion: 0,
-      idencuesta: 0,
+      idencuesta: 2,
       idpregunta: 0,
       actualizar: 0,
       encontrar: 0
-    };
+    }, _defineProperty(_ref, "encuesta", 2), _defineProperty(_ref, "encuesta1", ""), _ref;
   },
   components: {
     vSelect: vue_select__WEBPACK_IMPORTED_MODULE_1___default.a
@@ -2387,13 +2394,13 @@ __webpack_require__.r(__webpack_exports__);
       var url = "pregunta";
       axios.get(url).then(function (response) {
         var respuesta = response.data;
-        me.arrayPregunta = respuesta.preguntas;
+        me.arrayPregunta = respuesta.preguntas.data;
         me.pagination = respuesta.pagination;
 
         for (var i = 0; i < me.arrayPregunta.length; i++) {
           me.pregunta = me.arrayPregunta[i].pregunta;
-          me.idpregunta = me.arrayPregunta[i].id;
-          me.idencuesta = me.arrayPregunta[i].idencuensta;
+          me.encuesta1 = me.arrayPregunta[i].descripcion;
+          me.idpregunta = me.arrayPregunta[i].idpregunta;
         }
       })["catch"](function (error) {
         console.log(error);
@@ -2404,7 +2411,7 @@ __webpack_require__.r(__webpack_exports__);
       var url = "encuesta";
       axios.get(url).then(function (response) {
         var respuesta = response.data;
-        me.arrayEncuesta = respuesta.encuestas;
+        me.arrayEncuesta = respuesta.encuestas.data;
         me.pagination = respuesta.pagination;
 
         for (var i = 0; i < me.arrayEncuesta.length; i++) {
@@ -2431,7 +2438,8 @@ __webpack_require__.r(__webpack_exports__);
       var url = "get/user";
       axios.get(url, {
         params: {
-          j: this.idusers
+          j: this.idusers,
+          k: this.idencuesta
         }
       }).then(function (response) {
         var respuesta = response.data;
@@ -2494,7 +2502,6 @@ __webpack_require__.r(__webpack_exports__);
         idrespuesta: this.valor
       }).then(function (response) {
         me.idregion = 0;
-        idencuesta = 0;
         idpregunta = 0;
         me.arrayPregunta = [];
         me.arrayRespuesta = [];
@@ -77847,7 +77854,6 @@ var render = function() {
                                     id: "email",
                                     type: "email",
                                     name: "email",
-                                    disabled: "",
                                     placeholder: "Por favor Ingrese un Correo"
                                   },
                                   domProps: { value: _vm.email },
@@ -77895,8 +77901,7 @@ var render = function() {
                                   attrs: {
                                     type: "text",
                                     placeholder:
-                                      "Por favor Ingrese un N° Telefono",
-                                    disabled: ""
+                                      "Por favor Ingrese un N° Telefono"
                                   },
                                   domProps: { value: _vm.telefono },
                                   on: {
@@ -77991,7 +77996,7 @@ var render = function() {
                       _vm.errorIngreso !== 1
                         ? _c("div", [
                             _c("h5", [
-                              _c("small", [_vm._v(_vm._s(_vm.encuesta))])
+                              _c("small", [_vm._v(_vm._s(_vm.encuesta1))])
                             ])
                           ])
                         : _vm._e()
@@ -78158,14 +78163,14 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row alert alert-primary " }, [
-      _c("div", { staticClass: "col-md-12", attrs: { role: "alert" } }, [
+    return _c("div", { staticClass: "row " }, [
+      _c("div", { staticClass: "col-md-12", attrs: { role: "" } }, [
         _c("h3", [
           _c("img", {
             staticClass: "rounded",
             attrs: { src: "images/logo1.png", alt: "Sinof" }
           }),
-          _vm._v("     Encuestas Sinof 2020 ")
+          _vm._v("     Encuestas Sinof 2021 ")
         ])
       ])
     ])

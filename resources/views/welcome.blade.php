@@ -17,6 +17,8 @@
         <link href="css/plantilla.css" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
         <script src="{{asset('js/app.js')}}" defer></script>
+        <script src="https://unpkg.com/vue-ui-preloader"></script>
+        <link rel="stylesheet" type="text/css" href="https://unpkg.com/vue-ui-preloader/dist/loader.css">
         <!-- Styles -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
@@ -24,12 +26,21 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
     </head>
     <body>
+        
         <div id="app">
-        <div class="row alert alert-primary ">
-            <div class="col-md-12" role="alert">
-             
-               <encuesta></encuesta>
-         </div>      
+            
+        <div class="conatiner-fuid ">
+            <div class="jumbotron">
+               
+
+                    <div class="card">
+                        <loader object="#ff9633" color1="#ffffff" color2="#17fd3d" size="5" speed="2" bg="#343a40" objectbg="#999793" opacity="99" disableScrolling="false" name="spinning"></loader>
+                        <div class="card-body">  <encuesta></encuesta></div>
+                    </div>
+                
+                
+              
+            </div>          
                 
 
         </div>

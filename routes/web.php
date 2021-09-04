@@ -27,6 +27,7 @@ Route::get('/get/user','ParticipacionController@getUser');
 Route::get('/reporte', 'UserController@selectReporte');
 Route::get('/pregunta', 'PreguntaController@index');
 Route::get('/encuesta', 'EncuestaController@index');
+Route::get('/getencuesta', 'EncuestaController@getEncuestas');
 Route::get('/participacion', 'ParticipacionController@index');
 Route::post('/registrar','EncuestaController@store');
 Route::put('/actualizar', 'UserController@update');

@@ -8,7 +8,7 @@ use App\Participacion;
 class ParticipacionController extends Controller
 {
     public function index(Request $request){
-        if (!$request->ajax()) return redirect('/');
+       // if (!$request->ajax()) return redirect('/');
         $participacion = Participacion::join('encuestas','participacion.idencuesta','=','encuestas.id')
         ->join('users','participacion.iduser','=','users.id')
         ->select(
@@ -18,6 +18,7 @@ class ParticipacionController extends Controller
             'users.nombre',
             'encuestas.descripcion'
         )
+       
         ->orderBy('participacion.id', 'asc')->paginate(500);
 
     
@@ -29,7 +30,9 @@ class ParticipacionController extends Controller
     }
 
     public function getUser(Request $request){
-        if (!$request->ajax()) return redirect('/');
+
+       // if (!$request->ajax()) return redirect('/');
+       $term=$request->k;
         $users=Participacion::join('encuestas','participacion.idencuesta','=','encuestas.id')
         ->join('users','participacion.iduser','=','users.id')
         ->select(
@@ -40,6 +43,9 @@ class ParticipacionController extends Controller
             'encuestas.descripcion'
         )
       ->where('participacion.iduser','=',$request->j)
+      ->where(function ($q) use ($term) {
+        $q->where('participacion.idencuesta', '=', $term);        
+    })  
       ->first();
 
         
