@@ -80,7 +80,7 @@
                                     </div>
                                 </div> 
                             </div> -->
-                            <div
+                            <!-- <div
                                 class="form-group row row justify-content-md-center "
                             >
                                 <div  v-if="nombre !== ''" class="col-md-6">
@@ -103,8 +103,8 @@
                                        
                                     </div>
                                 </div>
-                            </div>
-                            <div
+                            </div> -->
+                            <!-- <div
                                 class="form-group row row justify-content-md-center"
                             >
                                 <div v-if="nombre !== ''" class="col-md-6">
@@ -123,8 +123,8 @@
                                         />
                                     </div>
                                 </div>
-                            </div>
-                            <div
+                            </div> -->
+                            <!-- <div
                                 class="text-center text-error row justify-content-md-center"
                             >
                                 <div class="col-md-6">
@@ -141,7 +141,7 @@
                                         </small>
                                     </h6>
                                 </div>
-                            </div>
+                            </div> -->
                             <div
                                 class="form-group row row justify-content-md-center"
                             >
@@ -453,14 +453,14 @@ export default {
             this.errorUsuario = [];
            
 
-            if (this.email == "" || this.email == null) {
-                this.errorUsuario.push("Ingrese Un correo");
-            } else if (!this.validEmail(this.email)) {
-                this.errorUsuario.push("Ingrese Un correo Valido");
-            }
-            if (this.telefono == "" || this.telefono == null) {
-                this.errorUsuario.push("Ingrese Un Telefono");
-            }
+           // if (this.email == "" || this.email == null) {
+             //   this.errorUsuario.push("Ingrese Un correo");
+            //} else if (!this.validEmail(this.email)) {
+              //  this.errorUsuario.push("Ingrese Un correo Valido");
+          //  }
+           // if (this.telefono == "" || this.telefono == null) {
+           //     this.errorUsuario.push("Ingrese Un Telefono");
+           // }
             if (this.idusers2 == this.idusers ) {
                 swal({
                             type: "error",
@@ -469,7 +469,7 @@ export default {
                                 "el RUT Ingresado ya ha realizado una votación para esta encuesta"
                                 
                         }).then(function(){
-                        location.reload();
+                       location.reload();
                     })
                 
             }

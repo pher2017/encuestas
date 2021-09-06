@@ -16,6 +16,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/vista', function () {
+    return view('layout');
+});
 Route::get('/chart', function () {
     return view('chart.chart');
 });
