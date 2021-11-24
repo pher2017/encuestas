@@ -15,8 +15,8 @@ class PreguntaController extends Controller
         'encuestas.descripcion',
         'preguntas.pregunta'
         )
-        ->where('preguntas.id','=','2')
-        ->orderBy('preguntas.id', 'asc')->paginate(500);
+        ->where('preguntas.id','=','3')
+        ->orderBy('preguntas.id', 'asc')->paginate(5);
 
 
         return ['preguntas' => $preguntas];

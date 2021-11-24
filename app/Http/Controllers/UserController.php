@@ -10,7 +10,7 @@ use App\Region;
 class UserController extends Controller
 {
     public function index(Request $request){
-      // if (!$request->ajax()) return redirect('/');
+       if (!$request->ajax()) return redirect('/');
         $buscar = $request->buscar;
         
         $users = User::join('regions','users.idregion','=','regions.id')
@@ -28,9 +28,7 @@ class UserController extends Controller
 
         )
         ->where('users.numero', '=', $buscar)
-        ->where(function ($q)  {
-            $q->where('users.condicion', '=', 1); 
-        }) 
+     
         ->orderBy('users.id')->paginate(10);
         
 

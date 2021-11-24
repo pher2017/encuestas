@@ -17,7 +17,7 @@ class EncuestaController extends Controller
             'encuestas.descripcion',
             'encuestas.fecha',
         )
-        ->where('encuestas.id','=','2')
+        ->where('encuestas.id','=','3')
         ->orderBy('encuestas.id', 'asc')->paginate(500);
 
         return ['encuestas'=>$encuestas];
@@ -30,7 +30,7 @@ class EncuestaController extends Controller
             'encuestas.descripcion',
             'encuestas.fecha'
         )
-        ->where('encuestas.id','=',2)
+        ->where('encuestas.id','=','3')
         ->orderBy('encuestas.id', 'asc')->paginate(500);
 
         return ['encuestas'=>$encuestas];

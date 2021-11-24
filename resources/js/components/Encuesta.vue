@@ -63,85 +63,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <!-- <div
-                                class="form-group row row justify-content-md-center"
-                            >
-                                 <div v-if="nombre !== '' " class="col-md-6">
-                                    <div  class="form-group">
-                                        <label
-                                            ><h5>
-                                                <small
-                                                    >Antes de ingresar a la
-                                                    encuesta, actualize sus
-                                                    datos por favor
-                                                </small>
-                                            </h5></label
-                                        >
-                                    </div>
-                                </div> 
-                            </div> -->
-                            <!-- <div
-                                class="form-group row row justify-content-md-center "
-                            >
-                                <div  v-if="nombre !== ''" class="col-md-6">
-                                    <div  class="form-group input-group mb-3">
-                                       
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text"
-                                                    >Correo</span
-                                                >
-                                            </div>
-                                            <input
-                                                id="email"
-                                                type="email"
-                                                name="email"
-                                                
-                                                class="form-control"
-                                                placeholder="Por favor Ingrese un Correo"
-                                                v-model="email"
-                                            />
-                                       
-                                    </div>
-                                </div>
-                            </div> -->
-                            <!-- <div
-                                class="form-group row row justify-content-md-center"
-                            >
-                                <div v-if="nombre !== ''" class="col-md-6">
-                                    <div  class="form-group input-group mb-3">
-                                        <div class="input-group-prepend">
-                                                <span class="input-group-text"
-                                                    >Telefono</span
-                                                >
-                                            </div>
-                                        <input
-                                            type="text"
-                                            class="form-control"
-                                            placeholder="Por favor Ingrese un N° Telefono"
-                                            
-                                            v-model="telefono"
-                                        />
-                                    </div>
-                                </div>
-                            </div> -->
-                            <!-- <div
-                                class="text-center text-error row justify-content-md-center"
-                            >
-                                <div class="col-md-6">
-                                    <h6>
-                                        <small>
-                                            <div
-                                                class="alert alert-danger"
-                                                v-for="error in errorUsuario"
-                                                :key="error"
-                                                v-text="error"
-                                            >
-                                                {{ error }}
-                                            </div>
-                                        </small>
-                                    </h6>
-                                </div>
-                            </div> -->
+                      
                             <div
                                 class="form-group row row justify-content-md-center"
                             >
@@ -270,11 +192,11 @@ export default {
             errorRespuesta: [],
             errorIngreso: 1,
             errorOpcion:0,
-            idencuesta: 2,
+            idencuesta: 3,
             idpregunta: 0,
             actualizar: 0,
             encontrar:0,
-            encuesta:2,
+            encuesta:3,
             encuesta1:""
         };
     },
