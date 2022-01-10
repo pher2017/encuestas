@@ -22,6 +22,8 @@ Route::get('/chart', function () {
 
 Route::get('/respuesta','RespuestaController@index');
 Route::get('/users','UserController@index');
+Route::get('/all','UserController@usersAll');
+
 Route::get('/users/get','UserController@selectUsers');
 Route::get('/get/user','ParticipacionController@getUser');
 Route::get('/reporte', 'UserController@selectReporte');

@@ -10,7 +10,7 @@ use App\Region;
 class UserController extends Controller
 {
     public function index(Request $request){
-       if (!$request->ajax()) return redirect('/');
+      // if (!$request->ajax()) return redirect('/');
         $buscar = $request->buscar;
         
         $users = User::join('regions','users.idregion','=','regions.id')
@@ -99,6 +99,27 @@ class UserController extends Controller
         $user->correo = $request->email;
         $user->telefono = $request->telefono;
         $user->save();
+    }
+
+    public function usersAll(Request $request)
+    {
+        $users = User::join('regions', 'users.idregion', '=', 'regions.id')   
+                ->select(
+                    'users.id',
+                    'users.numero',
+                    'users.dv',
+                    'users.nombre',
+                    'regions.descripcion',
+                    'users.cargo',
+                    'users.centro',
+                    'users.correo',
+                    'users.telefono'
+                    
+                )
+                ->where('users.condicion', '=', 1)
+                ->orderBy('users.id', 'asc')->paginate(5000);
+
+        return ['users'=>$users];
     }
 
 
