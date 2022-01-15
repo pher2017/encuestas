@@ -12,7 +12,7 @@ class UserController extends Controller
     public function index(Request $request){
       // if (!$request->ajax()) return redirect('/');
         $buscar = $request->buscar;
-        
+
         $users = User::join('regions','users.idregion','=','regions.id')
         ->select(
             'users.id',
@@ -28,9 +28,9 @@ class UserController extends Controller
 
         )
         ->where('users.numero', '=', $buscar)
-     
+
         ->orderBy('users.id')->paginate(10);
-        
+
 
         return ['users'=> $users];
 
@@ -41,7 +41,7 @@ class UserController extends Controller
         $filtro = $request->filtro;
         $user = User::where('numero', 'like', '%' . $filtro . '%')
             ->select("*", DB::RAW("CONCAT(users.numero,'-',users.dv,' ',users.nombre) as full "))
-            
+
             ->orderBy('id', 'asc')->get();
         return ['users' => $user];
     }
@@ -49,11 +49,11 @@ class UserController extends Controller
     public function selectReporte(Request $request){
         if (!$request->ajax()) return redirect('/');
         $buscar = $request->buscar;
-       
+
 
 
         if ($buscar == '') {
-            $reportes = User::join('regions', 'users.idregion', '=', 'regions.id')   
+            $reportes = User::join('regions', 'users.idregion', '=', 'regions.id')
                 ->select(
                     'users.numero',
                     'users.dv',
@@ -63,13 +63,13 @@ class UserController extends Controller
                     'users.centro',
                     'users.correo',
                     'users.telefono'
-                    
+
                 )
                 ->where('users.condicion', '=', 1)
 
                 ->orderBy('users.id', 'asc')->paginate(50);
         } else{
-            $reportes = User::join('regions', 'users.idregion', '=', 'regions.id')   
+            $reportes = User::join('regions', 'users.idregion', '=', 'regions.id')
             ->select(
                 'users.numero',
                 'users.dv',
@@ -79,7 +79,7 @@ class UserController extends Controller
                 'users.centro',
                 'users.correo',
                 'users.telefono'
-                
+
             )
                 ->where('users.nombre', 'like', '%' . $buscar . '%')
                 ->orWhere('users.numero', 'like', '%' . $buscar . '%')
@@ -88,7 +88,7 @@ class UserController extends Controller
 
 
         return [
-            
+
             'reportes' => $reportes
         ];
     }
@@ -103,7 +103,7 @@ class UserController extends Controller
 
     public function usersAll(Request $request)
     {
-        $users = User::join('regions', 'users.idregion', '=', 'regions.id')   
+        $users = User::join('regions', 'users.idregion', '=', 'regions.id')
                 ->select(
                     'users.id',
                     'users.numero',
@@ -113,8 +113,9 @@ class UserController extends Controller
                     'users.cargo',
                     'users.centro',
                     'users.correo',
-                    'users.telefono'
-                    
+                    'users.telefono',
+                    'users.updated_at as date'
+
                 )
                 ->where('users.condicion', '=', 1)
                 ->orderBy('users.id', 'asc')->paginate(5000);
