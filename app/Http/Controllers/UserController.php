@@ -94,9 +94,9 @@ class UserController extends Controller
     }
     public function update(Request $request)
     {
-        if (!$request->ajax()) return redirect('/');
+        // if (!$request->ajax()) return redirect('/');
         $user = User::findOrFail($request->id);
-        $user->correo = $request->email;
+        $user->correo = $request->correo;
         $user->telefono = $request->telefono;
         $user->save();
     }
@@ -121,6 +121,34 @@ class UserController extends Controller
                 ->orderBy('users.id', 'asc')->paginate(5000);
 
         return ['users'=>$users];
+    }
+    public function store(Request $request)
+    {
+        if (!$request->ajax()) return redirect('/');
+
+        try {
+            DB::beginTransaction();
+
+            $resultado = new User();
+            $resultado->numero = $request->numero;
+            $resultado->dv = $request->dv;
+            $resultado->nombre = $request->nombre;
+            $resultado->descripcion = $request->descripcion;
+            $resultado->cargo = $request->cargo;
+            $resultado->correo = $request->correo;
+            $resultado->telefono = $request->telefono;
+            $resultado->updated_at = now();
+            $resultado->save();
+
+
+
+
+
+
+            DB::commit();
+        } catch (Exception $e) {
+            DB::rollBack();
+        }
     }
 
 

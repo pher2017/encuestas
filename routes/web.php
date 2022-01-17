@@ -25,6 +25,7 @@ Route::get('/users','UserController@index');
 Route::get('/all','UserController@usersAll');
 
 Route::get('/users/get','UserController@selectUsers');
+Route::put('/users/post','UserController@store');
 Route::get('/get/user','ParticipacionController@getUser');
 Route::get('/reporte', 'UserController@selectReporte');
 Route::get('/pregunta', 'PreguntaController@index');

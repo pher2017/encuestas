@@ -24,7 +24,7 @@ class EncuestaController extends Controller
 
     }
     public function getEncuestas(Request $request){
-      
+
         $encuestas= Encuesta::select(
             'id',
             'encuestas.descripcion',
@@ -39,11 +39,11 @@ class EncuestaController extends Controller
 
     public function store(Request $request)
     {
-        if (!$request->ajax()) return redirect('/');
+
 
         try {
             DB::beginTransaction();
-    
+
             $resultado = new Resultado();
             $resultado->idrespuesta = $request->idrespuesta;
             $resultado->idencuesta = $request->idencuesta;
@@ -53,14 +53,14 @@ class EncuestaController extends Controller
             $resultado->save();
 
             $participacion = new Participacion();
-           
+
             $participacion->idencuesta = $request->idencuesta;
             $participacion->iduser = $request->idusers;
             $participacion->fecha = now();
             $participacion->save();
-            
 
-            
+
+
 
             DB::commit();
         } catch (Exception $e) {
