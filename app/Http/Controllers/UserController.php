@@ -115,12 +115,16 @@ class UserController extends Controller
                     'users.correo',
                     'users.telefono',
                     'users.updated_at as date'
+<<<<<<< Updated upstream
 
+=======
+                    
+>>>>>>> Stashed changes
                 )
                 ->where('users.condicion', '=', 1)
-                ->orderBy('users.id', 'asc')->paginate(5000);
+                ->orderBy('users.id', 'asc')->get();
 
-        return ['users'=>$users];
+        return ['users'=>$users]   ;
     }
     public function store(Request $request)
     {
